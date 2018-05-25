@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/nodeappdatabase');
+mongoose.connect('mongodb://<flash78>:<Flash78!>@ds235180.mlab.com:35180/users-db');
 const Schema = mongoose.Schema;
 
 
@@ -14,7 +14,7 @@ const userSchema = new Schema({
 const User = mongoose.model('User', userSchema);
 
 userSchema.method('manify', function(next){
-  const self = this;
+  var self = this;
   self.name = self.name + '-boy';
   return next(null, self.name);
 });
