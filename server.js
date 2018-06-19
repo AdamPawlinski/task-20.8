@@ -5,8 +5,6 @@ mongoose.connect('mongodb://<AdamPawlinski>:<Flash78!>@ds235180.mlab.com:35180/u
     useMongoClient: true
 });
 
-
-
 const userSchema = new Schema({
   name: String,
   username: {type: String, required: true, unique: true},
@@ -14,22 +12,21 @@ const userSchema = new Schema({
   admin: Boolean
 });
 
-const User = mongoose.model('User', userSchema);
-
-userSchema.method('manify', function(next){
-  var self = this;
-  self.name = self.name + '-boy';
-  return next(null, self.name);
-});
+userSchema.methods.manify = function(next) {
+    this.name = this.name + '-boy';
+    return next(null, this.name);
+};
 
 userSchema.pre('save', function(next){
-  const currentDate = newDate();
+  const currentDate = new Date();
   this.updated_at = currentDate;
   if(!this.created_at) {
     this.created_at = currentDate;
     next();
   }
 });
+
+const User = mongoose.model('User', userSchema);
 
 const zdzislaw = new User ({
   name: 'Zdzisław',
